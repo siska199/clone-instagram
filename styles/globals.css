@@ -7,7 +7,9 @@
     margin: 0;
     padding: 0;
 }
-
+li{
+    list-style: none;
+}
 body{
     max-width: 100vw;
     min-height: 100vh;
@@ -32,8 +34,17 @@ body{
     top: 50%;
     z-index: 1;
 }
-
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px #fafafa inset !important;
+}
 @layer components {
+    .container{
+        @apply max-w-[1100px] m-auto px-4 py-3
+    }
+
     .input-container {
       @apply border-2 bg-[#fafafa] px-[0.5rem] py-[0.2rem] outline-none h-[2.7rem] w-[18rem] flex  relative;
     }
@@ -44,6 +55,7 @@ body{
     .label{
         @apply transition duration-300 ease-linear text-[0.8rem] text-gray-400 top-[0.7rem] left-[0.5rem] absolute ;
     }
+
   }
   @layer base {
     @font-face {

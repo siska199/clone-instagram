@@ -2,13 +2,15 @@ import React from 'react'
 import Image from 'next/image'
 import imgBg from '../public/landpage-img.png'
 
-import { AiFillFacebook } from 'react-icons/ai'
+import { FcGoogle } from 'react-icons/fc'
 import Link from 'next/link'
 
-const Login = () => {
+import { getProviders, signIn } from 'next-auth/react'
+
+const landingpage = ({ providers }) => {
   return (
     <div className="m-auto flex  min-h-[100vh] max-w-[1500px]	items-center justify-center px-[1rem]">
-      <div className="sm:hidden md:block">
+      <div className="hidden lg:block">
         <Image className="object-coverk" src={imgBg} alt="" />
       </div>
 
@@ -27,7 +29,7 @@ const Login = () => {
               />
               <label
                 htmlFor="email"
-                className="label peer-valid:top-[0.1rem] peer-valid:text-[0.7rem] "
+                className="label peer-valid:top-[0.1rem]  peer-valid:z-40 peer-valid:text-[0.7rem] "
               >
                 Phone number, username, or email
               </label>
@@ -41,7 +43,7 @@ const Login = () => {
               />
               <label
                 htmlFor="password"
-                className="label peer-valid:top-[-0.05rem] peer-valid:text-[0.7rem] "
+                className="label peer-valid:top-[-0.05rem] peer-valid:z-40 peer-valid:text-[0.7rem] "
               >
                 Password
               </label>
@@ -59,11 +61,19 @@ const Login = () => {
               OR
             </p>
           </div>
+
           <div className="flex flex-col items-center justify-center ">
-            <button className="my-5 flex items-center justify-center text-center font-medium text-[#385185]">
-              <AiFillFacebook size="1.5rem" color="#385185" className="mx-2 " />{' '}
-              Log in with Facebook
-            </button>
+            {Object.values(providers).map((provider) => (
+              <div key={provider.name}>
+                <button
+                  onClick={() => signIn(provider.id,{callbackUrl:"/homepage"})}
+                  className="my-5 flex items-center justify-center text-center font-medium text-[#385185]"
+                >
+                 <FcGoogle className='mr-2'/> Sign in with {provider.name}
+                </button>
+              </div>
+            ))}
+
             <p className="cursor-pointer text-[0.8rem] text-[#385185]">
               Forgot password?
             </p>
@@ -82,5 +92,14 @@ const Login = () => {
     </div>
   )
 }
+export default landingpage
 
-export default Login
+export const getServerSideProps = async () => {
+  const providers = await getProviders()
+  console.log('providers: ', providers)
+  return {
+    props: {
+      providers,
+    },
+  }
+}
