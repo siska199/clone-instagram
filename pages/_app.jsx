@@ -31,7 +31,7 @@ function Auth({ children }) {
     return children
   }
   return (
-    <div className="h-full w-full flex items-center justify-center text-[2rem] font-thin text-white text-black">
+    <div className="h-[100vh] w-[100vw] flex items-center justify-center text-[2rem] font-thin text-white bg-black">
       Loading...
     </div>
   )
