@@ -34,6 +34,7 @@ body{
     top: 50%;
     z-index: 1;
 }
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -55,7 +56,9 @@ input:-webkit-autofill:active  {
     .label{
         @apply transition duration-300 ease-linear text-[0.8rem] text-gray-400 top-[0.7rem] left-[0.5rem] absolute ;
     }
-
+    .photo-section{
+        @apply flex items-center gap-1 cursor-pointer py-3 m-[-2px]
+    }
   }
   @layer base {
     @font-face {

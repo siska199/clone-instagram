@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import StoryIcon from '../StoryIcon/StoryIcon'
-import { faker } from '@faker-js/faker'
 
-const Stories = () => {
-  const [stories, setStories] = useState(false)
-  useEffect(() => {
-    const suggestion = [...Array(20)].map((_, i) => ({
-      id: i,
-      username: faker.name.firstName(true),
-      name: faker.name.firstName(true),
-      url: faker.image.avatar(true),
-    }))
-    setStories(suggestion)
-  }, [])
+const Stories = ({stories, bg,size}) => {
 
   return (
-    <div className="p-4 overflow-x-scroll scrollbar-thin flex space-x-4 border-2 border-gray-200 bg-white">
-      {stories &&
+    <div className={`p-4 overflow-x-scroll scrollbar-thin flex space-x-4 border-gray-200  ${bg&&"bg-white border-2"}`}>
+      {stories&&
         stories.map((data, i) => (
           <StoryIcon
             key={i}
-            size="medium"
+            size={size}
             url={data.url}
             username={data.username}
           />
