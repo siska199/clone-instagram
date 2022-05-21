@@ -35,16 +35,17 @@ const SideInfo = () => {
         </header>
         <section className="space-y-3">
           {suggests.map((data, i) => (
-            <div className='flex items-center justify-between'>
+            <div key={i} className="flex items-center justify-between">
               <StoryIcon
-                key={i}
                 size={'small'}
                 url={data.url}
                 username={data.username}
                 info={data.info}
                 side={true}
               />
-              <button className="text-sm font-medium text-sky-500/100 ">Follow</button>
+              <button className="text-sm font-medium text-sky-500/100 ">
+                Follow
+              </button>
             </div>
           ))}
         </section>

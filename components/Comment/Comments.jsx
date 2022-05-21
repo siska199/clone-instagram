@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import Comment from './Comment'
-import { faker } from '@faker-js/faker'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '../../firebase.config'
 
-const Comments = () => {
+const Comments = ({ id }) => {
   const [comments, setComments] = useState([])
   useEffect(() => {
-    const fakeComments = [...Array(2)].map((_, i) => ({
-      id: i,
-      username: faker.name.firstName(true),
-      url: faker.image.avatar(true),
-      comment: faker.lorem.lines(true),
-    }))
-    setComments(fakeComments)
-  }, [])
+    const unsub = onSnapshot(
+      query(collection(db, 'posts', id, 'comments'), orderBy('timestamp')),
+      (snap) => {
+        setComments(snap.docs)
+      }
+    )
+    return () => unsub
+  }, [db])
   return (
     <div>
-      {comments.map((data, i) => (
-        <Comment key={i} data={data} />
-      ))}
+      {comments.length > 0 &&
+        comments.map((data, i) => <Comment key={i} data={data} />)}
     </div>
   )
 }
