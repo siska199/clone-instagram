@@ -30,8 +30,11 @@ function Auth({ children }) {
   if (isUser) {
     return children
   }
-
-  // Session is being fetched, or no user.
-  // If no user, useEffect() will redirect.
-  return <div>Loading...</div>
+  return (
+    <div className="h-full w-full flex items-center justify-center text-[2rem] font-thin text-white text-black">
+      Loading...
+    </div>
+  )
 }
+
+//Ref: https://medium.com/@rajputpraj/protected-route-username-in-react-nextjs-part-1-73ccbc200aae

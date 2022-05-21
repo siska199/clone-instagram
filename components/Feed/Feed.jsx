@@ -55,7 +55,7 @@ const Feed = ({ id, data }) => {
   }
 
   return (
-    <div className="mt-5 border-2 bg-white">
+    <div className="mt-5 border-2 bg-white relative">
       <div className="flex items-center justify-between border-b-2 p-4">
         <StoryIcon
           size={'small'}

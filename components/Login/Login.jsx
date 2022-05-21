@@ -1,13 +1,12 @@
-import React from 'react'
 import Image from 'next/image'
-import imgBg from '../public/landpage-img.png'
-
+import imgBg from '../../public/landpage-img.png'
 import { FcGoogle } from 'react-icons/fc'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 
-import { getProviders, signIn } from 'next-auth/react'
+const Login = ({ providers }) => {
+  console.log('providers: ', providers)
 
-const landingpage = ({ providers }) => {
   return (
     <div className="m-auto flex  min-h-[100vh] max-w-[1500px]	items-center justify-center px-[1rem]">
       <div className="hidden lg:block">
@@ -66,10 +65,10 @@ const landingpage = ({ providers }) => {
             {Object.values(providers).map((provider) => (
               <div key={provider.name}>
                 <button
-                  onClick={() => signIn(provider.id,{callbackUrl:"/homepage"})}
+                  onClick={() => signIn(provider.id, { callbackUrl: '/' })}
                   className="my-5 flex items-center justify-center text-center font-medium text-[#385185]"
                 >
-                 <FcGoogle className='mr-2'/> Sign in with {provider.name}
+                  <FcGoogle className="mr-2" /> Sign in with {provider.name}
                 </button>
               </div>
             ))}
@@ -92,14 +91,4 @@ const landingpage = ({ providers }) => {
     </div>
   )
 }
-export default landingpage
-
-export const getServerSideProps = async () => {
-  const providers = await getProviders()
-  console.log('providers: ', providers)
-  return {
-    props: {
-      providers,
-    },
-  }
-}
+export default Login

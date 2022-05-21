@@ -3,6 +3,7 @@ import { BsEmojiSmile } from 'react-icons/bs'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { useSession } from 'next-auth/react'
 import { db } from '../../firebase.config'
+import Picker from 'emoji-picker-react'
 
 export const AddComment = ({ id }) => {
   const [comment, setComment] = useState('')
@@ -10,22 +11,35 @@ export const AddComment = ({ id }) => {
 
   const handleSendComment = async (e) => {
     e.preventDefault()
-
-    const resAddComment = await addDoc(
-      collection(db, 'posts', id, 'comments'),
-      {
-        comment: comment,
-        username: session.user.username,
-        avatar: session.user.image,
-        timestamp: serverTimestamp(),
-      }
-    )
+    console.log('comment: ', comment)
+    await addDoc(collection(db, 'posts', id, 'comments'), {
+      comment: comment,
+      username: session.user.username,
+      avatar: session.user.image,
+      timestamp: serverTimestamp(),
+    })
     setComment('')
-    console.log('ress add comment: ', resAddComment)
   }
+
+  const [showEmoji, setShowEmoji] = useState(false)
+  const onEmojiClick = (event, emojiObject) => {
+    console.log('emoji: ', emojiObject)
+    setComment((prev) => prev + ' ' + emojiObject.emoji)
+  }
+
   return (
     <form className="flex justify-between space-x-2 border-t-2 p-3">
-      <BsEmojiSmile className="text-[1.5rem]" />
+      <div className="relative">
+        <BsEmojiSmile
+          onClick={() => setShowEmoji(!showEmoji)}
+          className="cursor-pointer text-[1.5rem]"
+        />
+        {showEmoji && (
+          <div className="absolute top-6 z-[9999]">
+            <Picker onEmojiClick={onEmojiClick} />
+          </div>
+        )}
+      </div>
       <input
         onChange={(e) => setComment(e.target.value)}
         className="w-full bg-white outline-none"

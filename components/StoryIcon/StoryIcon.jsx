@@ -12,8 +12,8 @@ const StoryIcon = ({ size, url, username, info, side, feed, user }) => {
       height = 'h-[4.5rem]'
       break
     case 'myStory':
-      width = 'w-[6rem]'
-      height = 'h-[6rem]'
+      width = 'w-[5rem]'
+      height = 'h-[5rem]'
       break
     case 'medium':
       width = 'w-16'
@@ -30,7 +30,7 @@ const StoryIcon = ({ size, url, username, info, side, feed, user }) => {
   return (
     <div
       className={`flex gap-2 ${size == 'medium' && 'flex-col items-center  '}
-      ${size == 'myStory' && 'flex-col'}
+      ${size == 'myStory' && 'flex-col md:px-2 font-semibold'}
     `}
     >
       <img

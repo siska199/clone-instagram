@@ -7,6 +7,7 @@ import { BsGrid3X3 } from 'react-icons/bs'
 import { BsBookmark } from 'react-icons/bs'
 import { BiUserPin } from 'react-icons/bi'
 import { faker } from '@faker-js/faker'
+import Head from 'next/head'
 
 const profile = () => {
   const { data: session } = useSession()
@@ -60,18 +61,22 @@ const profile = () => {
 
   return (
     <div>
+      <Head>
+        <title>{session.user.name}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Navbar />
       <main className="container flex flex-col justify-center">
         {/* Profile Info */}
-        <section className="mt-6 flex items-center space-x-10 md:px-[10rem] ">
+        <section className="mt-6 flex items-center space-x-2 md:space-x-10 md:px-[10rem] ">
           <img
-            className="h-[10rem] rounded-full border-2"
+            className="h-[6rem] rounded-full  border-2 md:h-[10rem]"
             src={session?.user.image}
             alt=""
           />
           <div className="flex flex-col gap-5">
             <section className="flex items-center gap-4">
-              <h1 className="text-[2rem] font-thin">
+              <h1 className="text-[1.4rem] font-thin md:text-[2rem]">
                 {session?.user.username}
               </h1>
               <button className="rounded-md border-2 px-2 py-1 font-medium">
@@ -79,7 +84,7 @@ const profile = () => {
               </button>
               <FiSettings className="text-[1.5rem]" />
             </section>
-            <section className="flex gap-4 text-[1.2rem]">
+            <section className="flex gap-4 text-[0.9rem]">
               <p>
                 <span className="font-semibold">45M</span> followers
               </p>
@@ -90,14 +95,14 @@ const profile = () => {
                 <span className="font-semibold">48</span> following
               </p>
             </section>
-            <section className="text-[1.1rem]">
+            <section className="text-[1rem]">
               <h1 className="font-semibold">{session?.user.name}</h1>
               <p>Diary of learning english</p>
             </section>
           </div>
         </section>
 
-        <section className="my-[3rem] mx-[4rem]">
+        <section className="m-2 md:m-[4rem]">
           <Stories stories={stories} size="myStory" />
         </section>
 
@@ -135,12 +140,12 @@ const profile = () => {
             </li>
           </ul>
 
-          <div className="flex gap-3 flex-wrap flex-shrink justify-center">
+          <div className="flex flex-shrink flex-wrap justify-center gap-3">
             {images.map((img, i) => (
               <div key={i}>
                 <img
                   src={img}
-                  className="h-[20rem] w-[20rem] border-2 object-contain"
+                  className="h-[8rem] w-[8rem] border-2 object-contain md:h-[20rem] md:w-[20rem]"
                 />
               </div>
             ))}

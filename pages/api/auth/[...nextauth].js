@@ -11,7 +11,7 @@ export default NextAuth({
     // ...add more providers here
   ],
   pages: {
-    signIn: '/landingpage',
+    signIn: '/',
   },
   callbacks: {
     //modified session callback
@@ -19,7 +19,8 @@ export default NextAuth({
       console.log('session: ', session)
       console.log('token: ', token)
       console.log('user: ', user)
-      session.user.username = session.user.name.split(' ')[0].toLowerCase()+'199'
+      session.user.username =
+        session.user.name.split(' ')[0].toLowerCase() + '199'
       session.user.uid = token.sub
       return session
     },

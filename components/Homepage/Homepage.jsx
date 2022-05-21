@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import Feeds from '../components/Feed/Feeds'
-import ModalUploadPost from '../components/Modal/ModalUploadPost'
-import Navbar from '../components/Navbar/Navbar'
-import SideInfo from '../components/SideInfo/SideInfo'
-import Stories from '../components/Stories/Stories'
+import { useState, useEffect } from 'react'
+import Feeds from '../Feed/Feeds'
+import ModalUploadPost from '../Modal/ModalUploadPost'
+import Navbar from '../Navbar/Navbar'
+import SideInfo from '../SideInfo/SideInfo'
+import Stories from '../Stories/Stories'
 import { faker } from '@faker-js/faker'
 
-const homepage = () => {
+const Homepage = () => {
   const [open, setOpen] = useState(false)
 
   //Create fake data storie of fiend
@@ -26,7 +26,7 @@ const homepage = () => {
       <Navbar setOpen={setOpen} />
 
       <main className="container my-3 flex flex-shrink justify-between gap-8 ">
-        <section className="w-[100%] md:w-[60%]">
+        <section className="w-[100%] md:w-[57%]">
           <Stories stories={stories} bg={true} size="medium" />
           <Feeds />
         </section>
@@ -36,5 +36,5 @@ const homepage = () => {
     </div>
   )
 }
-homepage.auth = true
-export default homepage
+
+export default Homepage

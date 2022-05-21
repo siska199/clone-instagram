@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { faker } from '@faker-js/faker'
 import StoryIcon from '../StoryIcon/StoryIcon'
+import { useSession } from 'next-auth/react'
 
 const SideInfo = () => {
   const [suggests, setSuggets] = useState([])
@@ -13,20 +14,22 @@ const SideInfo = () => {
     }))
     setSuggets(fakeSuggests)
   }, [])
-  const url =
-    'https://static.remove.bg/remove-bg-web/7deb868fb894efaa6d5f6cbfd1a016f4a613fda9/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png'
+
+  const { data: session } = useSession()
 
   return (
     <div className="!sticky top-[7rem] h-[50%] p-4 ">
       <div className="mb-[1.5rem] flex gap-[3rem]">
         <StoryIcon
-          url={url}
+          url={session.user.image}
           size="large"
-          username="siska199"
+          username={session.user.username}
           user={true}
-          info="Siska Apriana Rifianti"
+          info={session.user.name}
         />
-        <button className="text-sm font-medium text-sky-500/100">Switch</button>
+        <button className="text-sm font-medium text-sky-500/100">
+          Add Story
+        </button>
       </div>
       <div>
         <header className="mb-3 flex items-center justify-between ">

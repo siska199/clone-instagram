@@ -46,7 +46,7 @@ const Dropdown = () => {
 
       <div className="py-1">
         <a
-          onClick={() => signOut({ callbackUrl: '/landingpage' })}
+          onClick={() => signOut({ callbackUrl: '/' })}
           className="text-md block cursor-pointer px-4 py-2  hover:bg-gray-200"
         >
           Sign Out

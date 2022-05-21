@@ -14,18 +14,38 @@ const Navbar = ({ setOpen }) => {
   const [openDropdown, setOpenDropdown] = useState(false)
 
   const icons = [
-    <AiFillHome />,
-    <RiMessengerLine />,
-    <AiOutlinePlusSquare onClick={() => setOpen(true)} />,
-    <AiOutlineCompass />,
-    <GiSelfLove />,
+    {
+      name: 'home',
+      icon: <AiFillHome />,
+      url: '/',
+    },
+    {
+      name: 'inbox',
+      icon: <RiMessengerLine />,
+      url: '/inbox',
+    },
+    {
+      name: 'posts',
+      icon: <AiOutlinePlusSquare onClick={() => setOpen(true)} />,
+      notUrl: true,
+    },
+    {
+      name: 'explorer',
+      icon: <AiOutlineCompass />,
+      url: '/explorer',
+    },
+    {
+      name: 'love',
+      icon: <GiSelfLove />,
+      notUrl: true,
+    },
   ]
 
   return (
     <header className="sticky top-0 z-50 border-2 bg-white">
       <nav className="container flex items-center justify-between">
         <div>
-          <Link href="/homepage">
+          <Link href="/">
             <a className='font-["Billabong"] text-[1.5rem] md:text-[2.3rem]'>
               Instagram
             </a>
@@ -39,9 +59,15 @@ const Navbar = ({ setOpen }) => {
           />
         </div>
         <ul className="flex items-center gap-2 md:gap-4 ">
-          {icons.map((icon, i) => (
+          {icons.map((data, i) => (
             <li className="cursor-pointer text-[1.5rem] md:text-[2rem]" key={i}>
-              {icon}
+              {data.notUrl ? (
+                <a>{data.icon}</a>
+              ) : (
+                <Link href={data.url}>
+                  <a>{data.icon}</a>
+                </Link>
+              )}
             </li>
           ))}
           {session ? (
