@@ -1,6 +1,4 @@
-import Image from 'next/image'
 import React from 'react'
-import Feed from '../Feed/Feed'
 
 const StoryIcon = ({ size, url, username, info, side, feed, user }) => {
   let width = ''
@@ -30,7 +28,7 @@ const StoryIcon = ({ size, url, username, info, side, feed, user }) => {
   return (
     <div
       className={`flex gap-2 ${size == 'medium' && 'flex-col items-center  '}
-      ${size == 'myStory' && 'flex-col md:px-2 font-semibold'}
+      ${size == 'myStory' && 'flex-col font-semibold md:px-2'}
     `}
     >
       <img

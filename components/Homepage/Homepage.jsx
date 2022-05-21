@@ -14,9 +14,9 @@ const Homepage = () => {
   useEffect(() => {
     const suggestion = [...Array(20)].map((_, i) => ({
       id: i,
-      username: faker.name.firstName(true),
-      name: faker.name.firstName(true),
-      url: faker.image.avatar(true),
+      username: 'siska199',
+      name: 'Siska Apriana Rifianti',
+      url: 'https://i.pinimg.com/564x/10/58/9f/10589fdab54694b819c976130325121d.jpg',
     }))
     setStories(suggestion)
   }, [])
@@ -24,7 +24,6 @@ const Homepage = () => {
   return (
     <div>
       <Navbar setOpen={setOpen} />
-
       <main className="container my-3 flex flex-shrink justify-between gap-8 ">
         <section className="w-[100%] md:w-[57%]">
           <Stories stories={stories} bg={true} size="medium" />

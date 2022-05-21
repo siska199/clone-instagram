@@ -7,8 +7,6 @@ import { useSession } from 'next-auth/react'
 
 const ModalUploadPost = ({ setOpen }) => {
   const { data: session } = useSession()
-
-  console.log('OPEN')
   const imageRef = useRef(null)
   const captionRef = useRef('')
   const [urlFile, setUrlFile] = useState(false)
@@ -31,9 +29,7 @@ const ModalUploadPost = ({ setOpen }) => {
       const downloadURL = await getDownloadURL(storageRef)
 
       //Upload data to firestore
-      console.log('session: ', session)
-      console.log('cap: ', captionRef.current.value)
-      const resAddDoc = await addDoc(collection(db, 'posts'), {
+      await addDoc(collection(db, 'posts'), {
         username: session.user.username,
         caption: captionRef.current.value,
         avatar: session.user.image,
@@ -41,8 +37,6 @@ const ModalUploadPost = ({ setOpen }) => {
         imagePost: downloadURL,
       })
 
-      console.log('add Doc: ', resAddDoc)
-      console.log('downloadURL: ', downloadURL)
       setLoading(false)
       setOpen(false)
     })

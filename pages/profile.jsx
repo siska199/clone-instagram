@@ -6,29 +6,24 @@ import { FiSettings } from 'react-icons/fi'
 import { BsGrid3X3 } from 'react-icons/bs'
 import { BsBookmark } from 'react-icons/bs'
 import { BiUserPin } from 'react-icons/bi'
-import { faker } from '@faker-js/faker'
 import Head from 'next/head'
+import { collection, getDocs, onSnapshot,query,orderBy } from 'firebase/firestore'
+import { db } from '../firebase.config'
 
 const profile = () => {
   const { data: session } = useSession()
-  console.log('session profile: ', session)
   //Create fake data storie of fiend
   const [stories, setStories] = useState(false)
   useEffect(() => {
     const suggestion = [...Array(20)].map((_, i) => ({
       id: i,
-      username: faker.name.firstName(true),
-      name: faker.name.firstName(true),
-      url: faker.image.avatar(true),
+      username: "siska199",
+      name: "Siska Apriana Rifianti",
+      url: 'https://i.pinimg.com/564x/10/58/9f/10589fdab54694b819c976130325121d.jpg',
     }))
     setStories(suggestion)
   }, [])
 
-  const posts = [
-    'https://i.pinimg.com/564x/22/73/15/22731510633e26da89180e4b3c57d40e.jpg',
-    'https://i.pinimg.com/564x/05/e9/dc/05e9dc891869114a20fd1cce67720a9b.jpg',
-    'https://i.pinimg.com/736x/e1/b9/7b/e1b97b1da46753f19943f35a8139602a.jpg',
-  ]
   const saved = [
     'https://i.pinimg.com/564x/10/58/9f/10589fdab54694b819c976130325121d.jpg',
     'https://i.pinimg.com/564x/20/3e/e4/203ee433c7ae235b5090f056e7cb77bc.jpg',
@@ -40,15 +35,33 @@ const profile = () => {
     'https://i.pinimg.com/564x/4a/5c/e7/4a5ce78b60d097bcebb1ce4518060364.jpg',
   ]
 
-  const [images, setImages] = useState(posts)
+  const [images, setImages] = useState([])
   const [activePhotoSection, setActivePhotoSection] = useState('posts')
+  useEffect(() => {
+    const unsub = onSnapshot(
+      query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
+      (snap) => {
+        let data = []
+        snap.docs.forEach((doc) => {
+          data.push(doc.data().imagePost)
+        })
+        setImages(data)
+      }
+    )
+    return () => unsub
+  }, [db])
 
-  const handleActivePhotoSection = (photoSection) => {
-    console.log('check: ', photoSection)
+  const handleActivePhotoSection = async (photoSection) => {
     setActivePhotoSection(photoSection)
+    let data = []
     switch (photoSection) {
       case 'posts':
-        setImages(posts)
+        const querySnapshot = await getDocs(query(collection(db, 'posts'), orderBy('timestamp', 'desc')))
+        querySnapshot.forEach((doc) => {
+          data.push(doc.data().imagePost)
+          console.log(doc.data().imagePost)
+        })
+        setImages(data)
         break
       case 'saved':
         setImages(saved)

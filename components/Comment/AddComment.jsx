@@ -11,7 +11,6 @@ export const AddComment = ({ id }) => {
 
   const handleSendComment = async (e) => {
     e.preventDefault()
-    console.log('comment: ', comment)
     await addDoc(collection(db, 'posts', id, 'comments'), {
       comment: comment,
       username: session.user.username,
@@ -23,7 +22,6 @@ export const AddComment = ({ id }) => {
 
   const [showEmoji, setShowEmoji] = useState(false)
   const onEmojiClick = (event, emojiObject) => {
-    console.log('emoji: ', emojiObject)
     setComment((prev) => prev + ' ' + emojiObject.emoji)
   }
 

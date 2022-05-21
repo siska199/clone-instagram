@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 
 const Login = ({ providers }) => {
-  console.log('providers: ', providers)
 
   return (
     <div className="m-auto flex  min-h-[100vh] max-w-[1500px]	items-center justify-center px-[1rem]">

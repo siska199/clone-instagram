@@ -26,11 +26,9 @@ const Feed = ({ id, data }) => {
   const [like, setLike] = useState(false)
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'posts', id, 'likes'), (snap) => {
-      console.log('Likes data: ', snap)
       const findUser = snap.docs.filter(
         (data) => data.data().username == session.user.username
       )[0]
-      console.log('findUser', findUser)
       setLike(findUser)
       setLikesData(snap.docs)
     })
@@ -40,22 +38,17 @@ const Feed = ({ id, data }) => {
   const handleLike = async (e) => {
     console.log('like: ', like)
     if (like) {
-      console.log('like: ', like.id)
-      const resRemoveLike = await deleteDoc(
-        doc(db, 'posts', id, 'likes', like.id)
-      )
+      await deleteDoc(doc(db, 'posts', id, 'likes', like.id))
       setLike(false)
-      console.log('res add or remove likes: ', resRemoveLike)
     } else {
-      const resAddLike = await addDoc(collection(db, 'posts', id, 'likes'), {
+      await addDoc(collection(db, 'posts', id, 'likes'), {
         username: session.user.username,
       })
-      console.log('res add or remove likes: ', resAddLike)
     }
   }
 
   return (
-    <div className="mt-5 border-2 bg-white relative">
+    <div className="relative mt-5 border-2 bg-white">
       <div className="flex items-center justify-between border-b-2 p-4">
         <StoryIcon
           size={'small'}
