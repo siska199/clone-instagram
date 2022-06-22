@@ -18,6 +18,7 @@ export const AddComment = ({ id }) => {
       timestamp: serverTimestamp(),
     })
     setComment('')
+    setShowEmoji(false)
   }
 
   const [showEmoji, setShowEmoji] = useState(false)
