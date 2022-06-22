@@ -1,6 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { dataVideosStory as videos } from '../../lib/data'
 import { BsThreeDots, BsPlay } from 'react-icons/bs'
+import { GrFormPrevious, GrFormNext } from 'react-icons/gr'
+import { AiOutlineClose } from 'react-icons/ai'
+
 import {
   AiOutlineAudio,
   AiOutlinePause,
@@ -33,9 +36,33 @@ const ModalStory = ({ setModal, modal }) => {
   const handleAudio = () => {
     setMuted(!muted)
   }
+
+  const handleNextPrev = (next, previous) => {
+    if (next) {
+      setIndex((prev) => {
+        videoElm.current.src = videos[prev + 1].url
+        return prev + 1
+      })
+    }
+    if (previous) {
+      setIndex((prev) => {
+        videoElm.current.src = videos[prev - 1].url
+        return prev - 1
+      })
+    }
+  }
   return (
-    <section className="fixed top-0 -left-5 z-50 flex h-full w-full bg-zinc-800 py-4 text-white">
-      <div className="m-auto flex h-full w-[27rem] flex-col gap-4 rounded-lg border-2 border-zinc-600 py-5">
+    <section className="fixed top-0 -left-5 z-50 flex h-full w-full items-center justify-center gap-3 bg-zinc-800 py-4 text-white">
+      {index > 0 && (
+        <span
+          onClick={() => handleNextPrev(false,true)}
+          className="cursor-pointer rounded-full border-2 bg-slate-400 hover:bg-white"
+        >
+          <GrFormPrevious size="2rem" />
+        </span>
+      )}
+
+      <div className="flex h-full w-[27rem] flex-col gap-4 rounded-lg border-2 border-zinc-600 py-5">
         <div className="flex w-full flex-row justify-between px-5">
           {videos.map((_, i) => (
             <div key={i} className={`flex h-[0.15rem] w-[30%] bg-zinc-600`}>
@@ -85,6 +112,21 @@ const ModalStory = ({ setModal, modal }) => {
           onEnded={(e) => handleIndex(e)}
         ></video>
       </div>
+      {index != videos.length - 1 && (
+        <span
+          onClick={() => handleNextPrev(true,false)}
+          className="cursor-pointer rounded-full border-2 bg-slate-400 hover:bg-white"
+        >
+          <GrFormNext size="2rem" />
+        </span>
+      )}
+
+      <span
+        onClick={() => setModal(!modal)}
+        className="absolute top-6 right-6 cursor-pointer rounded-full bg-zinc-600 p-2 text-[1.2rem] hover:bg-slate-400"
+      >
+        <AiOutlineClose />
+      </span>
     </section>
   )
 }
