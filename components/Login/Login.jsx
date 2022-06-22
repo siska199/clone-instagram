@@ -1,11 +1,9 @@
 import Image from 'next/image'
 import imgBg from '../../public/landpage-img.png'
 import { FcGoogle } from 'react-icons/fc'
-import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 
 const Login = ({ providers }) => {
-
   return (
     <div className="m-auto flex  min-h-[100vh] max-w-[1500px]	items-center justify-center px-[1rem]">
       <div className="hidden lg:block">
@@ -55,7 +53,7 @@ const Login = ({ providers }) => {
             </button>
           </div>
           <div className="relative">
-            <p className="before:content('') line mt-3 text-center font-medium text-gray-500">
+            <p className="line mt-3 text-center font-medium text-gray-500">
               OR
             </p>
           </div>
@@ -64,7 +62,7 @@ const Login = ({ providers }) => {
             {Object.values(providers).map((provider) => (
               <div key={provider.name}>
                 <button
-                  onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+                  onClick={() => signIn(provider.id)}
                   className="my-5 flex items-center justify-center text-center font-medium text-[#385185]"
                 >
                   <FcGoogle className="mr-2" /> Sign in with {provider.name}
@@ -81,9 +79,7 @@ const Login = ({ providers }) => {
         <div className="my-3 border-2 bg-white p-5 text-center">
           <p>
             Don't have an accound
-            <Link href="">
-              <a className="mx-2 font-medium text-[#385185]">Sign up</a>
-            </Link>
+            <a className="mx-2 font-medium text-[#385185]">Sign up</a>
           </p>
         </div>
       </div>

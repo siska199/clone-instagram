@@ -12,6 +12,7 @@ const Stories = ({stories, bg,size}) => {
             size={size}
             url={data.url}
             username={data.username}
+            story = {true}
           />
         ))}
     </div>

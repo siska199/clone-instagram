@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { faker } from '@faker-js/faker'
 import StoryIcon from '../StoryIcon/StoryIcon'
 import { useSession } from 'next-auth/react'
 
+import { dataSuggests as suggests } from '../../lib/data'
+
 const SideInfo = () => {
-  const [suggests, setSuggets] = useState([])
-  useEffect(() => {
-    const fakeSuggests = [...Array(5)].map((_, i) => ({
-      id: i,
-      username: faker.name.firstName(true),
-      url: faker.image.avatar(true),
-      info: 'Follow by siska_ar + 3 more',
-    }))
-    setSuggets(fakeSuggests)
-  }, [])
 
   const { data: session } = useSession()
 
