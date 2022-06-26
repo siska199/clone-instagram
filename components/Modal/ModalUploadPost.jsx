@@ -45,11 +45,11 @@ const ModalUploadPost = ({ setOpen }) => {
   return (
     <div
       onClick={() => setOpen(false)}
-      className="fixed top-0 left-0 z-[99] flex h-full w-full items-center justify-center overflow-hidden bg-gray-500  opacity-90"
+      className="fixed top-0 left-0 z-[99] flex h-full w-full items-center justify-center overflow-hidden bg-black/80 "
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative flex w-[20rem] flex-col items-center justify-center rounded-lg !bg-white p-5 !opacity-100"
+        className="relative flex w-[20rem] flex-col items-center justify-center rounded-lg !bg-white p-5 "
       >
         {urlFile ? (
           <img className="mb-2 h-[10rem]	 object-contain" src={urlFile} alt="" />

@@ -7,7 +7,13 @@ import { BsGrid3X3 } from 'react-icons/bs'
 import { BsBookmark } from 'react-icons/bs'
 import { BiUserPin } from 'react-icons/bi'
 import Head from 'next/head'
-import { collection, getDocs, onSnapshot,query,orderBy } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  orderBy,
+} from 'firebase/firestore'
 import { db } from '../firebase.config'
 
 const profile = () => {
@@ -17,8 +23,8 @@ const profile = () => {
   useEffect(() => {
     const suggestion = [...Array(20)].map((_, i) => ({
       id: i,
-      username: "siska199",
-      name: "Siska Apriana Rifianti",
+      username: 'siska199',
+      name: 'Siska Apriana Rifianti',
       url: 'https://i.pinimg.com/564x/10/58/9f/10589fdab54694b819c976130325121d.jpg',
     }))
     setStories(suggestion)
@@ -56,7 +62,9 @@ const profile = () => {
     let data = []
     switch (photoSection) {
       case 'posts':
-        const querySnapshot = await getDocs(query(collection(db, 'posts'), orderBy('timestamp', 'desc')))
+        const querySnapshot = await getDocs(
+          query(collection(db, 'posts'), orderBy('timestamp', 'desc'))
+        )
         querySnapshot.forEach((doc) => {
           data.push(doc.data().imagePost)
           console.log(doc.data().imagePost)
@@ -79,7 +87,7 @@ const profile = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="container flex flex-col justify-center">
+      <main className="container mb-[5rem] flex flex-col justify-center">
         {/* Profile Info */}
         <section className="mt-6 flex items-center space-x-2 md:space-x-10 md:px-[10rem] ">
           <img
