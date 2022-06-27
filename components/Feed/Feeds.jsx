@@ -1,19 +1,16 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
-import { db } from '../../firebase.config'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Feed from './Feed'
+import { handleGetPosts } from '../../redux/action/posts'
 
 const Feeds = () => {
-  const [posts, setPosts] = useState([])
+  const dispatch = useDispatch()
+  const posts = useSelector((state) => state.posts.posts)
+  console.log('post: ', posts)
+  
   useEffect(() => {
-    const unsub = onSnapshot(
-      query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
-      (snap) => {
-        setPosts(snap.docs)
-      }
-    )
-    return () => unsub
-  }, [db])
+    dispatch(handleGetPosts())
+  }, [])
 
   return (
     <div className="w-full">

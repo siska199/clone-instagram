@@ -1,6 +1,8 @@
 import '../styles/globals.css'
 import { SessionProvider, useSession, signIn } from 'next-auth/react'
 import { useEffect } from 'react'
+import { Provider } from 'react-redux'
+import store from '../redux/store'
 
 export default function MyApp({
   Component,
@@ -8,13 +10,15 @@ export default function MyApp({
 }) {
   return (
     <SessionProvider session={session}>
-      {Component.auth ? (
-        <Auth>
+      <Provider store={store}>
+        {Component.auth ? (
+          <Auth>
+            <Component {...pageProps} />
+          </Auth>
+        ) : (
           <Component {...pageProps} />
-        </Auth>
-      ) : (
-        <Component {...pageProps} />
-      )}
+        )}
+      </Provider>
     </SessionProvider>
   )
 }
@@ -31,7 +35,7 @@ function Auth({ children }) {
     return children
   }
   return (
-    <div className="h-[100vh] w-[100vw] flex items-center justify-center text-[2rem] font-thin text-white bg-black">
+    <div className="flex h-[100vh] w-[100vw] items-center justify-center bg-black text-[2rem] font-thin text-white">
       Loading...
     </div>
   )
