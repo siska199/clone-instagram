@@ -14,7 +14,6 @@ export const handleGetComments = (idPost) => async (dispatch) => {
     onSnapshot(
       query(collection(db, 'posts', idPost, 'comments'), orderBy('timestamp')),
       (snaps) => {
-        console.log('gert data: ', snaps.docs)
         dispatch({
           type: GET_COMMENTS,
           payload: {

@@ -5,11 +5,9 @@ import Comment from './Comment'
 
 const Comments = ({ id }) => {
   const dispatch = useDispatch()
-
   const dataCommentsByIdPosts = useSelector(
     (state) => state.comments.comments
   ).filter((data) => data.idPost == id)
-  console.log(`array updated: ${id} `, dataCommentsByIdPosts)
   const comments = dataCommentsByIdPosts[0] ? dataCommentsByIdPosts[0].data : []
 
   useEffect(() => {

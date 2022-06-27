@@ -19,7 +19,6 @@ const comments = (state = initialState, action) => {
       const index = comments.findIndex(
         (commentsPost) => commentsPost.idPost == action.payload.idPost
       )
-      console.log('index', index)
       if (index != -1) {
         comments[index] = { ...action.payload }
       } else {
