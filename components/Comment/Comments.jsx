@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleGetComments } from '../../redux/action/comments'
 import Comment from './Comment'
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { db } from '../../firebase.config'
 
 const Comments = ({ id }) => {
-  const [comments, setComments] = useState([])
+  const dispatch = useDispatch()
+
+  const dataCommentsByIdPosts = useSelector(
+    (state) => state.comments.comments
+  ).filter((data) => data.idPost == id)
+  console.log(`array updated: ${id} `, dataCommentsByIdPosts)
+  const comments = dataCommentsByIdPosts[0] ? dataCommentsByIdPosts[0].data : []
+
   useEffect(() => {
-    const unsub = onSnapshot(
-      query(collection(db, 'posts', id, 'comments'), orderBy('timestamp')),
-      (snap) => {
-        setComments(snap.docs)
-      }
-    )
-    return () => unsub
-  }, [db])
+    dispatch(handleGetComments(id))
+  }, [dispatch])
+
   return (
     <div>
       {comments.length > 0 &&
