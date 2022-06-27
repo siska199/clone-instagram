@@ -6,7 +6,6 @@ import { handleGetPosts } from '../../redux/action/posts'
 const Feeds = () => {
   const dispatch = useDispatch()
   const posts = useSelector((state) => state.posts.posts)
-  console.log('post: ', posts)
   
   useEffect(() => {
     dispatch(handleGetPosts())

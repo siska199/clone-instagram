@@ -16,11 +16,13 @@ import {
 } from '../typeAction/posts'
 
 export const handleGetPosts = () => async (dispatch) => {
-  const data = await getDocs(
-    query(collection(db, 'posts'), orderBy('timestamp', 'desc'))
+  onSnapshot(
+    query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
+    (snaps) => {
+      dispatch({
+        type: GET_POSTS,
+        payload: snaps.docs,
+      })
+    }
   )
-  dispatch({
-    type: GET_POSTS,
-    payload: data.docs,
-  })
 }
