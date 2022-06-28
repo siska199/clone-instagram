@@ -13,6 +13,10 @@ export default NextAuth({
   pages: {
     signIn: '/',
   },
+  secret: process.env.JWT_SECRET,
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     //modified session callback
     async session({ session, token, user }) {
