@@ -1,9 +1,11 @@
+import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { BsEmojiSmile } from 'react-icons/bs'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { useSession } from 'next-auth/react'
 import { db } from '../../firebase.config'
-import Picker from 'emoji-picker-react'
+
+const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false })
 
 export const AddComment = ({ id }) => {
   const [comment, setComment] = useState('')
@@ -22,6 +24,7 @@ export const AddComment = ({ id }) => {
   }
 
   const [showEmoji, setShowEmoji] = useState(false)
+
   const onEmojiClick = (event, emojiObject) => {
     setComment((prev) => prev + ' ' + emojiObject.emoji)
   }
