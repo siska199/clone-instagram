@@ -36,7 +36,6 @@ const Feed = ({ id, data }) => {
   }, [db])
 
   const handleLike = async (e) => {
-    console.log('like: ', like)
     if (like) {
       await deleteDoc(doc(db, 'posts', id, 'likes', like.id))
       setLike(false)

@@ -22,12 +22,14 @@ const Comment = ({ data }) => {
             {data.data().username}
             <span className="ml-2 font-normal">{data.data().comment}</span>
           </p>
-          <p className="text-[0.8rem] text-gray-400 flex items-center">
-            <Moment fromNow ago className='w-[4rem]'>
+          <p className="flex items-center text-[0.8rem] text-gray-400">
+            <Moment fromNow ago className="w-[4rem]">
               {data.data().timestamp?.toDate()}
             </Moment>
             <span className="ml-2 cursor-pointer font-semibold">Reply</span>
-            <HiOutlineDotsHorizontal className={`${showDotTree} text-[1.3rem] ml-3 cursor-pointer`} />
+            <HiOutlineDotsHorizontal
+              className={`${showDotTree} ml-3 cursor-pointer text-[1.3rem]`}
+            />
           </p>
         </div>
       </div>

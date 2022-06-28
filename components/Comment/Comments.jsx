@@ -15,7 +15,7 @@ const Comments = ({ id }) => {
   }, [dispatch])
 
   return (
-    <div>
+    <div className='h-[13vw] overflow-y-scroll no-scrollbar'>
       {comments.length > 0 &&
         comments.map((data, i) => <Comment key={i} data={data} />)}
     </div>
